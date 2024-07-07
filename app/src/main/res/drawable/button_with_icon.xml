@@ -1,0 +1,16 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Button Background -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@drawable/orange_button_background" />
+            <corners android:radius="4dp" />
+        </shape>
+    </item>
+
+    <!-- Icon -->
+    <item android:gravity="center">
+        <bitmap
+            android:gravity="center"
+            android:src="@drawable/baseline_arrow_back_ios_24" />
+    </item>
+</layer-list>

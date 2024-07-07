@@ -7,21 +7,6 @@
     tools:context=".ui.MainFragment"
     android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/searchMovie"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:ems="10"
-        android:background="@drawable/edittext_background"
-        android:inputType="text"
-        android:drawableStart="@drawable/baseline_search_24"
-        android:layout_margin="16dp"
-        android:drawablePadding="8dp"
-        android:padding="12dp"
-        android:textColor="@color/white"
-        android:hint="Search Movies..."
-        android:textColorHint="@color/white"/>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">

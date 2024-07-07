@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#FF7427"/>
+            <corners android:radius="50dp"/>
+        </shape>
+
+        <bitmap
+            android:gravity="center"
+            android:src="@drawable/baseline_arrow_back_ios_24" />
+
+    </item>
+
+</selector>

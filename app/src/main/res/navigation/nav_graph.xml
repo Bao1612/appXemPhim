@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.movieapp.MainFragment"
+        android:name="com.example.movieapp.ui.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" />
     <fragment
@@ -16,13 +16,13 @@
         android:label="fragment_about"
         tools:layout="@layout/fragment_about" />
     <fragment
-        android:id="@+id/settingFragment"
-        android:name="com.example.movieapp.SettingFragment"
-        android:label="fragment_setting"
-        tools:layout="@layout/fragment_setting" />
+        android:id="@+id/tvFragment"
+        android:name="com.example.movieapp.ui.TvSeriesFragment"
+        android:label="fragment_tv"
+        tools:layout="@layout/fragment_tv" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.movieapp.ProfileFragment"
+        android:name="com.example.movieapp.ui.FavouriteFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_favourite" />
 </navigation>
