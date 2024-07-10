@@ -16,6 +16,7 @@ import com.example.movieapp.R;
 import com.example.movieapp.api.ApiClient;
 import com.example.movieapp.api.ApiService;
 import com.example.movieapp.controller.MovieAdapter;
+import com.example.movieapp.controller.OnMovieClickListener;
 import com.example.movieapp.databinding.FragmentFavouriteBinding;
 import com.example.movieapp.databinding.FragmentMainBinding;
 import com.example.movieapp.model.Movie;
@@ -29,7 +30,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class FavouriteFragment extends Fragment {
+public class FavouriteFragment extends Fragment implements OnMovieClickListener {
 
     private FragmentFavouriteBinding binding;
     private MovieAdapter adapter;
@@ -48,7 +49,7 @@ public class FavouriteFragment extends Fragment {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(requireContext(), 2);
         binding.rcvMovie.setLayoutManager(gridLayoutManager);
         movieList = new ArrayList<>();
-        adapter = new MovieAdapter(requireContext(), movieList);
+        adapter = new MovieAdapter(requireContext(), movieList, this);
         binding.rcvMovie.setAdapter(adapter);
 
         getMovieData();
@@ -79,4 +80,8 @@ public class FavouriteFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onMovieClick(Movie movie) {
+
+    }
 }

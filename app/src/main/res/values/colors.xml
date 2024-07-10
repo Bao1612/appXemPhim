@@ -6,4 +6,5 @@
     <color name="main_color">#1F1D2B</color>
     <color name="bright_purple">#BF40BF</color>
     <color name="cerulean_blue">#3e8ed0</color>
+    <color name="red">#FF0000</color>
 </resources>
