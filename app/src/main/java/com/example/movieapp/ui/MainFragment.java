@@ -10,8 +10,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.movieapp.R;
 import com.example.movieapp.api.ApiClient;
 import com.example.movieapp.api.ApiService;
 import com.example.movieapp.controller.MovieAdapter;
@@ -19,6 +22,12 @@ import com.example.movieapp.controller.OnMovieClickListener;
 import com.example.movieapp.databinding.FragmentMainBinding;
 import com.example.movieapp.model.Movie;
 import com.example.movieapp.model.MovieResponse;
+import com.example.movieapp.util.GeneralUtil;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +43,7 @@ public class MainFragment extends Fragment implements OnMovieClickListener {
     private MovieAdapter adapter;
     private List<Movie> movieList;
     private ApiService apiService;
+    private GeneralUtil generalUtil;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,6 +59,7 @@ public class MainFragment extends Fragment implements OnMovieClickListener {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(requireContext(), 2);
         binding.rcvMovie.setLayoutManager(gridLayoutManager);
         movieList = new ArrayList<>();
+        generalUtil = new GeneralUtil();
         adapter = new MovieAdapter(requireContext(), movieList, this);
         binding.rcvMovie.setAdapter(adapter);
 
@@ -113,6 +124,45 @@ public class MainFragment extends Fragment implements OnMovieClickListener {
 
     @Override
     public void onMovieClick(Movie movie) {
-        Log.d("BAO_DEBUG", "title: " + movie.getTitle());
+
+        clickBottomSheetDialog(movie);
     }
+
+    private void clickBottomSheetDialog(Movie movie) {
+        View viewDialog = getLayoutInflater().inflate(R.layout.bottom_sheet_layout, null);
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(requireContext());
+        bottomSheetDialog.setContentView(viewDialog);
+        bottomSheetDialog.show();
+        bottomSheetDialog.setCancelable(false);
+
+        ImageView backdrop_path = viewDialog.findViewById(R.id.backdropPath);
+        TextView movieName = viewDialog.findViewById(R.id.movieName);
+        TextView overview = viewDialog.findViewById(R.id.overview);
+        TextView closeBtn = viewDialog.findViewById(R.id.close_btn);
+        ImageView addFavoriteBtn = viewDialog.findViewById(R.id.addFavoriteBtn);
+
+        Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getBackdrop_path()).into(backdrop_path);
+
+        movieName.setText(movie.getTitle());
+        overview.setText(movie.getOverview());
+
+        closeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomSheetDialog.dismiss();
+            }
+        });
+
+        addFavoriteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                generalUtil.addFavoriteTvSeries("movie", movie.getId());
+            }
+        });
+
+        BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from((View) viewDialog.getParent());
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+    }
+
 }

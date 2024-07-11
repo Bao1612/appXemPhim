@@ -18,7 +18,7 @@
         android:layout_margin="16dp"
         android:drawablePadding="8dp"
         android:padding="12dp"
-        android:hint="Search Movies..."
+        android:hint="Search..."
         android:textColorHint="@color/white"/>
 
     <androidx.recyclerview.widget.RecyclerView

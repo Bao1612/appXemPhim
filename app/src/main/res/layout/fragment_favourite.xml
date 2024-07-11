@@ -7,6 +7,21 @@
     tools:context=".ui.MainFragment"
     android:orientation="vertical">
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        android:hint="--Select Type--">
+
+        <AutoCompleteTextView
+            android:id="@+id/movieType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">

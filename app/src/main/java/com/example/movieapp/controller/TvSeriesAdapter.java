@@ -20,10 +20,12 @@ public class TvSeriesAdapter extends RecyclerView.Adapter<TvSeriesAdapter.TvSeri
 
     private Context context;
     private List<Movie> movieList;
+    private OnMovieClickListener listener;
 
-    public TvSeriesAdapter(Context context, List<Movie> movieList) {
+    public TvSeriesAdapter(Context context, List<Movie> movieList, OnMovieClickListener listener) {
         this.context = context;
         this.movieList = movieList;
+        this.listener = listener;
     }
 
     @NonNull
@@ -38,6 +40,7 @@ public class TvSeriesAdapter extends RecyclerView.Adapter<TvSeriesAdapter.TvSeri
         Movie movie = movieList.get(position);
         holder.textViewTitle.setText(movie.getName());
         Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPosterPath()).into(holder.imageViewPoster);
+        holder.bind(movie, listener);
     }
 
     @Override
@@ -54,6 +57,16 @@ public class TvSeriesAdapter extends RecyclerView.Adapter<TvSeriesAdapter.TvSeri
             textViewTitle = itemView.findViewById(R.id.movieName);
             imageViewPoster = itemView.findViewById(R.id.poster);
         }
+
+        public void bind(final Movie movie, final OnMovieClickListener listener) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onMovieClick(movie);
+                }
+            });
+        }
+
     }
 
 }
