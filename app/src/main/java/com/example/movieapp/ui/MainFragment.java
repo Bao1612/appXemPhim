@@ -2,18 +2,14 @@ package com.example.movieapp.ui;
 
 
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.movieapp.R;
 import com.example.movieapp.api.ApiClient;
 import com.example.movieapp.api.ApiService;
@@ -26,12 +22,8 @@ import com.example.movieapp.util.GeneralUtil;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -157,6 +149,8 @@ public class MainFragment extends Fragment implements OnMovieClickListener {
             @Override
             public void onClick(View v) {
                 generalUtil.addFavoriteTvSeries("movie", movie.getId());
+                Toast.makeText(requireContext(), "Added to favorites", Toast.LENGTH_SHORT).show();
+
             }
         });
 

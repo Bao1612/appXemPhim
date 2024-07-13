@@ -115,6 +115,8 @@ public class TvSeriesFragment extends Fragment implements OnMovieClickListener {
             @Override
             public void onClick(View v) {
                 generalUtil.addFavoriteTvSeries("tv", movie.getId());
+                Toast.makeText(requireContext(), "Added to favorites", Toast.LENGTH_SHORT).show();
+
             }
         });
 
