@@ -38,6 +38,7 @@ public class TvSeriesFragment extends Fragment implements OnMovieClickListener {
     private TvSeriesAdapter adapter;
     private List<Movie> movieList;
     private GeneralUtil generalUtil;
+    private int page;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,22 +50,28 @@ public class TvSeriesFragment extends Fragment implements OnMovieClickListener {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(requireContext(), 2);
         binding.rcvMovie.setLayoutManager(gridLayoutManager);
         movieList = new ArrayList<>();
+        page = 1;
         adapter = new TvSeriesAdapter(requireContext(), movieList, this);
         binding.rcvMovie.setAdapter(adapter);
         generalUtil = new GeneralUtil();
-        getTvSeriesData();
+        getTvSeriesData(page);
+        nextPage();
+        prevPage();
+
 
         return view;
     }
 
-    private void getTvSeriesData() {
+    private void getTvSeriesData(int page) {
         ApiService apiService = ApiClient.getRetrofitClient().create(ApiService.class);
 
         // Call the getMovies method without the Authorization header
-        Call<MovieResponse> call = apiService.getTvSeries(1);
+        Call<MovieResponse> call = apiService.getTvSeries(page);
         call.enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+                movieList.clear();
+                adapter.notifyDataSetChanged();
                 if (response.isSuccessful() && response.body() != null) {
                     List<Movie> movies = response.body().getResults();
                     movieList.addAll(movies);
@@ -77,6 +84,35 @@ public class TvSeriesFragment extends Fragment implements OnMovieClickListener {
             @Override
             public void onFailure(Call<MovieResponse> call, Throwable throwable) {
                 Toast.makeText(requireContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void prevPage() {
+        binding.prevPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String prevPageNumber = String.valueOf(Integer.parseInt(binding.pageNumber.getText().toString()) - 1);
+
+                if(prevPageNumber.equals("0")) {
+                    binding.pageNumber.setText("1");
+                } else {
+                    binding.pageNumber.setText(prevPageNumber);
+                    getTvSeriesData(Integer.parseInt(prevPageNumber));
+                }
+
+            }
+        });
+    }
+
+    private void nextPage() {
+        binding.nextPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String nextPageNumber = String.valueOf(Integer.parseInt(binding.pageNumber.getText().toString()) + 1);
+
+                binding.pageNumber.setText(nextPageNumber);
+                getTvSeriesData(Integer.parseInt(nextPageNumber));
             }
         });
     }

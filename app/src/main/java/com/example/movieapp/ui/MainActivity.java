@@ -1,5 +1,6 @@
 package com.example.movieapp.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -74,9 +75,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             MainActivity.navController.navigate(R.id.profileFragment, null, options);
         } else if(id == R.id.nav_vip) {
             MainActivity.navController.navigate(R.id.vipFragment, null, options);
+        } else if(id == R.id.nav_logout) {
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
+
 }

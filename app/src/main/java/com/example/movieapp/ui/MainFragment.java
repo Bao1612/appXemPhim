@@ -36,6 +36,7 @@ public class MainFragment extends Fragment implements OnMovieClickListener {
     private List<Movie> movieList;
     private ApiService apiService;
     private GeneralUtil generalUtil;
+    private int page;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,7 +48,7 @@ public class MainFragment extends Fragment implements OnMovieClickListener {
         // Initialize RecyclerView and Adapter
 
         apiService = ApiClient.getRetrofitClient().create(ApiService.class);
-
+        page = 1;
         GridLayoutManager gridLayoutManager = new GridLayoutManager(requireContext(), 2);
         binding.rcvMovie.setLayoutManager(gridLayoutManager);
         movieList = new ArrayList<>();
@@ -56,19 +57,21 @@ public class MainFragment extends Fragment implements OnMovieClickListener {
         binding.rcvMovie.setAdapter(adapter);
 
         // Load movie data
-        getMovieData();
+        getMovieData(page);
         prevPage();
         nextPage();
 //        searchMovie();
         return view;
     }
 
-    private void getMovieData() {
+    private void getMovieData(int page) {
         // Call the getMovies method without the Authorization header
-        Call<MovieResponse> call = apiService.getMovies(1);
+        Call<MovieResponse> call = apiService.getMovies(page);
         call.enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+                movieList.clear();
+                adapter.notifyDataSetChanged();
                 if (response.isSuccessful() && response.body() != null) {
                     List<Movie> movies = response.body().getResults();
                     movieList.addAll(movies);
@@ -95,6 +98,7 @@ public class MainFragment extends Fragment implements OnMovieClickListener {
                     binding.pageNumber.setText("1");
                 } else {
                     binding.pageNumber.setText(prevPageNumber);
+                    getMovieData(Integer.parseInt(prevPageNumber));
                 }
 
             }
@@ -108,7 +112,7 @@ public class MainFragment extends Fragment implements OnMovieClickListener {
                 String nextPageNumber = String.valueOf(Integer.parseInt(binding.pageNumber.getText().toString()) + 1);
 
                 binding.pageNumber.setText(nextPageNumber);
-
+                getMovieData(Integer.parseInt(nextPageNumber));
             }
         });
     }
@@ -158,5 +162,6 @@ public class MainFragment extends Fragment implements OnMovieClickListener {
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 
     }
+
 
 }
