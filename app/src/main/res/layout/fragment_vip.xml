@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/main_color"
+    android:padding="20dp"
+    tools:context=".ui.VipFragment"
+    android:orientation="vertical">
+
+   <androidx.cardview.widget.CardView
+       android:layout_width="match_parent"
+       android:layout_height="200dp"
+       app:cardBackgroundColor="#33909090"
+       app:cardUseCompatPadding="false"
+       app:cardElevation="0dp">
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:orientation="vertical"
+           android:padding="10dp">
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="Riêng 1 phim"
+               android:textAlignment="center"
+               android:textSize="20sp"
+               android:textColor="@color/white"/>
+
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="800 đ"
+               android:textAlignment="center"
+               android:textSize="20sp"
+               android:textColor="@color/yellow"
+               android:layout_marginTop="10dp"/>
+
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="- Có giá trị 10 ngày. Sau đó, phim sẽ trở về chế độ bình thường với bạn."
+               android:textSize="16sp"
+               android:textColor="@color/white"
+               android:layout_marginTop="4dp"/>
+
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="- Phù hợp nếu bạn ít thời gian xem phim"
+               android:textSize="16sp"
+               android:textColor="@color/white"
+               android:layout_marginTop="4dp"/>
+
+       </LinearLayout>
+   </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"
+        app:cardBackgroundColor="#33909090"
+        app:cardUseCompatPadding="false"
+        app:cardElevation="0dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tất cả phim trên ứng dụng"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="30.000 đ/tháng"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textColor="@color/yellow"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="- Xem VIP toàn bộ phim trên web trong 30 ngày"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:layout_marginTop="4dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="- Phù hợp nếu bạn hay xem phim"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:layout_marginTop="4dp"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/loginBtn"
+                style="@android:style/Widget.Button"
+                android:background="@drawable/orange_button_background"
+                android:textSize="18sp"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chọn"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

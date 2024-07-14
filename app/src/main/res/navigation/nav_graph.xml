@@ -11,10 +11,10 @@
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" />
     <fragment
-        android:id="@+id/aboutFragment"
-        android:name="com.example.movieapp.ui.AboutFragment"
+        android:id="@+id/vipFragment"
+        android:name="com.example.movieapp.ui.VipFragment"
         android:label="fragment_about"
-        tools:layout="@layout/fragment_about" />
+        tools:layout="@layout/fragment_vip" />
     <fragment
         android:id="@+id/tvFragment"
         android:name="com.example.movieapp.ui.TvSeriesFragment"

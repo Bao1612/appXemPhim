@@ -72,6 +72,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         else if (id == R.id.nav_favourite){
             MainActivity.navController.navigate(R.id.profileFragment, null, options);
+        } else if(id == R.id.nav_vip) {
+            MainActivity.navController.navigate(R.id.vipFragment, null, options);
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);

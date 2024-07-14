@@ -14,8 +14,8 @@
             android:title="Favorite"
             />
         <item
-            android:id="@+id/nav_setting"
-            android:title="Donate"
+            android:id="@+id/nav_vip"
+            android:title="VIP"
             />
         <item
             android:id="@+id/nav_logout"
