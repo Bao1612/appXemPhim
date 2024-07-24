@@ -1,7 +1,10 @@
 package com.example.movieapp.ui;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import android.view.LayoutInflater;
@@ -74,6 +77,7 @@ public class MainFragment extends Fragment implements OnMovieClickListener {
                 adapter.notifyDataSetChanged();
                 if (response.isSuccessful() && response.body() != null) {
                     List<Movie> movies = response.body().getResults();
+                    movieList.add(new Movie("Kong: Skull Island", 1169061, "/jks6QgJjsaDC5iT6bxLsSS0eo6L.jpg", "/r2517Vz9EhDhj88qwbDVj8DCRZN.jpg", "Explore the mysterious and dangerous home of the king of the apes as a team of explorers ventures deep inside the treacherous, primordial island.", "123"));
                     movieList.addAll(movies);
                     adapter.notifyDataSetChanged();
                 } else {
@@ -136,11 +140,19 @@ public class MainFragment extends Fragment implements OnMovieClickListener {
         TextView overview = viewDialog.findViewById(R.id.overview);
         TextView closeBtn = viewDialog.findViewById(R.id.close_btn);
         ImageView addFavoriteBtn = viewDialog.findViewById(R.id.addFavoriteBtn);
+        AppCompatButton playBtn = viewDialog.findViewById(R.id.playBtn);
 
         Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getBackdrop_path()).into(backdrop_path);
 
         movieName.setText(movie.getTitle());
         overview.setText(movie.getOverview());
+
+        playBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(requireContext(), WatchActivity.class));
+            }
+        });
 
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
