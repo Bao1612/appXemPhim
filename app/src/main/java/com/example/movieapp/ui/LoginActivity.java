@@ -40,14 +40,16 @@ public class LoginActivity extends AppCompatActivity {
         binding.loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = binding.editTextEmail.getText().toString();
-                String password = binding.editTextPassword.getText().toString();
+//                String email = binding.editTextEmail.getText().toString();
+//                String password = binding.editTextPassword.getText().toString();
+//
+//                if (email.isEmpty() || password.isEmpty()) {
+//                    Toast.makeText(LoginActivity.this, "Email and Password cannot be empty", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    login(email, password);
+//                }
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
 
-                if (email.isEmpty() || password.isEmpty()) {
-                    Toast.makeText(LoginActivity.this, "Email and Password cannot be empty", Toast.LENGTH_SHORT).show();
-                } else {
-                    login(email, password);
-                }
             }
         });
     }
