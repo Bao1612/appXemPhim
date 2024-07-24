@@ -90,7 +90,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="- Xem VIP toàn bộ phim trên web trong 30 ngày"
+                android:text="- Xem VIP toàn bộ phim trên ứng dụng trong 30 ngày"
                 android:textSize="16sp"
                 android:textColor="@color/white"
                 android:layout_marginTop="4dp"/>

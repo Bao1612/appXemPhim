@@ -33,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         getWindow().setStatusBarColor(getResources().getColor(android.R.color.black));
 
         handleLogin();
+        registerActivity();
 
     }
 
@@ -50,6 +51,15 @@ public class LoginActivity extends AppCompatActivity {
 //                }
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
 
+            }
+        });
+    }
+
+    private void registerActivity() {
+        binding.register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             }
         });
     }
