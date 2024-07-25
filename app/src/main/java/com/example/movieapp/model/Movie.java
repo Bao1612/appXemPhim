@@ -18,6 +18,15 @@ public class Movie {
     @SerializedName("name")
     private String name;
 
+    public Movie(String title, int id, String backdrop_path, String posterPath, String overview, String name) {
+        this.title = title;
+        this.id = id;
+        this.backdrop_path = backdrop_path;
+        this.posterPath = posterPath;
+        this.overview = overview;
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }
