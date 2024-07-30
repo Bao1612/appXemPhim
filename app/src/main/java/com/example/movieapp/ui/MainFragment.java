@@ -39,6 +39,7 @@ public class MainFragment extends Fragment implements OnMovieClickListener {
     private List<Movie> movieList;
     private ApiService apiService;
     private GeneralUtil generalUtil;
+    private List<Movie> movie;
     private int page;
 
     @Override
@@ -56,6 +57,7 @@ public class MainFragment extends Fragment implements OnMovieClickListener {
         binding.rcvMovie.setLayoutManager(gridLayoutManager);
         movieList = new ArrayList<>();
         generalUtil = new GeneralUtil();
+        movie = new ArrayList<>();
         adapter = new MovieAdapter(requireContext(), movieList, this);
         binding.rcvMovie.setAdapter(adapter);
 
