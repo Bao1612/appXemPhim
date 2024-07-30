@@ -77,7 +77,6 @@ public class MainFragment extends Fragment implements OnMovieClickListener {
                 adapter.notifyDataSetChanged();
                 if (response.isSuccessful() && response.body() != null) {
                     List<Movie> movies = response.body().getResults();
-                    movieList.add(new Movie("Kong: Skull Island", 1169061, "/jks6QgJjsaDC5iT6bxLsSS0eo6L.jpg", "/r2517Vz9EhDhj88qwbDVj8DCRZN.jpg", "Explore the mysterious and dangerous home of the king of the apes as a team of explorers ventures deep inside the treacherous, primordial island.", "123"));
                     movieList.addAll(movies);
                     adapter.notifyDataSetChanged();
                 } else {
