@@ -1,7 +1,10 @@
 package com.example.movieapp.ui;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import android.view.LayoutInflater;
@@ -138,11 +141,19 @@ public class MainFragment extends Fragment implements OnMovieClickListener {
         TextView overview = viewDialog.findViewById(R.id.overview);
         TextView closeBtn = viewDialog.findViewById(R.id.close_btn);
         ImageView addFavoriteBtn = viewDialog.findViewById(R.id.addFavoriteBtn);
+        AppCompatButton playBtn = viewDialog.findViewById(R.id.playBtn);
 
         Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getBackdrop_path()).into(backdrop_path);
 
         movieName.setText(movie.getTitle());
         overview.setText(movie.getOverview());
+
+        playBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(requireContext(), WatchActivity.class));
+            }
+        });
 
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
