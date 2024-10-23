@@ -100,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:text="Register Now"
                 android:textAlignment="center"
-                android:textColor="@color/white"
+                android:textColor="#FF7427"
                 android:textSize="16sp"
                 android:textStyle="bold"/>
         </LinearLayout>
