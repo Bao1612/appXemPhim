@@ -1,4 +1,4 @@
-package com.example.movieapp.controller;
+package com.example.movieapp.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,20 +10,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.movieapp.R;
-import com.example.movieapp.model.Movie;
-import com.example.movieapp.model.MovieResponse;
+import com.example.movieapp.util.OnMovieClickListener;
+import com.example.movieapp.model.Film;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
     private Context context;
-    private List<Movie> movieList;
+    private List<Film> movieList;
     private OnMovieClickListener listener;
 
-    public MovieAdapter(Context context, List<Movie> movieList, OnMovieClickListener listener) {
+    public MovieAdapter(Context context, List<Film> movieList, OnMovieClickListener listener) {
         this.context = context;
         this.movieList = movieList;
         this.listener = listener;
@@ -38,7 +37,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
-        Movie movie = movieList.get(position);
+        Film movie = movieList.get(position);
         holder.textViewTitle.setText(movie.getTitle());
         Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPosterPath()).into(holder.imageViewPoster);
         holder.bind(movie, listener);
@@ -59,7 +58,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             imageViewPoster = itemView.findViewById(R.id.poster);
         }
 
-        public void bind(final Movie movie, final OnMovieClickListener listener) {
+        public void bind(final Film movie, final OnMovieClickListener listener) {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

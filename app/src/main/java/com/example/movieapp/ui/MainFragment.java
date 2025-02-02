@@ -14,32 +14,27 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.movieapp.R;
-import com.example.movieapp.api.ApiClient;
-import com.example.movieapp.api.ApiService;
-import com.example.movieapp.controller.MovieAdapter;
-import com.example.movieapp.controller.OnMovieClickListener;
+import com.example.movieapp.adapter.MovieAdapter;
+import com.example.movieapp.controller.MovieController;
+import com.example.movieapp.util.OnMovieClickListener;
 import com.example.movieapp.databinding.FragmentMainBinding;
-import com.example.movieapp.model.Movie;
-import com.example.movieapp.model.MovieResponse;
+import com.example.movieapp.model.Film;
 import com.example.movieapp.util.GeneralUtil;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 public class MainFragment extends Fragment implements OnMovieClickListener {
 
     private FragmentMainBinding binding;
     private MovieAdapter adapter;
-    private List<Movie> movieList;
-    private ApiService apiService;
+    private List<Film> movieList;
+    private MovieController movieController;
     private GeneralUtil generalUtil;
-    private List<Movie> movie;
+    private List<Film> movie;
     private int page;
 
     @Override
@@ -51,8 +46,8 @@ public class MainFragment extends Fragment implements OnMovieClickListener {
 
         // Initialize RecyclerView and Adapter
 
-        apiService = ApiClient.getRetrofitClient().create(ApiService.class);
         page = 1;
+        movieController = new MovieController();
         GridLayoutManager gridLayoutManager = new GridLayoutManager(requireContext(), 2);
         binding.rcvMovie.setLayoutManager(gridLayoutManager);
         movieList = new ArrayList<>();
@@ -70,27 +65,20 @@ public class MainFragment extends Fragment implements OnMovieClickListener {
     }
 
     private void getMovieData(int page) {
-        // Call the getMovies method without the Authorization header
-        Call<MovieResponse> call = apiService.getMovies(page);
-        call.enqueue(new Callback<MovieResponse>() {
-            @Override
-            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
-                movieList.clear();
-                adapter.notifyDataSetChanged();
-                if (response.isSuccessful() && response.body() != null) {
-                    List<Movie> movies = response.body().getResults();
-                    movieList.addAll(movies);
-                    adapter.notifyDataSetChanged();
-                } else {
-                    Toast.makeText(requireContext(), "Call API error", Toast.LENGTH_SHORT).show();
-                }
-            }
+       movieController.fetchMovies(page, new MovieController.MovieCallback() {
+           @Override
+           public void onSuccess(List<Film> movies) {
+               movieList.clear();
+               movieList.addAll(movies);
+               adapter.notifyDataSetChanged();
+           }
 
-            @Override
-            public void onFailure(Call<MovieResponse> call, Throwable throwable) {
-                Toast.makeText(requireContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
-            }
-        });
+           @Override
+           public void onError(String errorMessage) {
+
+           }
+       });
+
     }
 
     private void prevPage() {
@@ -124,12 +112,12 @@ public class MainFragment extends Fragment implements OnMovieClickListener {
 
 
     @Override
-    public void onMovieClick(Movie movie) {
+    public void onMovieClick(Film movie) {
 
         clickBottomSheetDialog(movie);
     }
 
-    private void clickBottomSheetDialog(Movie movie) {
+    private void clickBottomSheetDialog(Film movie) {
         View viewDialog = getLayoutInflater().inflate(R.layout.bottom_sheet_layout, null);
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(requireContext());
         bottomSheetDialog.setContentView(viewDialog);

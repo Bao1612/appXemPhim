@@ -12,17 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
 import com.example.movieapp.R;
 import com.example.movieapp.api.ApiClient;
 import com.example.movieapp.api.ApiService;
-import com.example.movieapp.controller.MovieAdapter;
-import com.example.movieapp.controller.OnMovieClickListener;
+import com.example.movieapp.adapter.MovieAdapter;
+import com.example.movieapp.util.OnMovieClickListener;
 import com.example.movieapp.databinding.FragmentFavouriteBinding;
-import com.example.movieapp.databinding.FragmentMainBinding;
-import com.example.movieapp.model.Movie;
+import com.example.movieapp.model.Film;
 import com.example.movieapp.model.MovieResponse;
 
 import java.util.ArrayList;
@@ -37,7 +35,7 @@ public class FavouriteFragment extends Fragment implements OnMovieClickListener 
 
     private FragmentFavouriteBinding binding;
     private MovieAdapter adapter;
-    private List<Movie> movieList;
+    private List<Film> movieList;
     private ApiService apiService;
     private String[] type = {"Movie", "Tv"};
     private ArrayAdapter<String> adapterItems;
@@ -88,7 +86,7 @@ public class FavouriteFragment extends Fragment implements OnMovieClickListener 
                 movieList.clear();
                 adapter.notifyDataSetChanged();
                 if (response.isSuccessful() && response.body() != null) {
-                    List<Movie> movies = response.body().getResults();
+                    List<Film> movies = response.body().getResults();
                     movieList.addAll(movies);
                     adapter.notifyDataSetChanged();
                 } else {
@@ -112,7 +110,7 @@ public class FavouriteFragment extends Fragment implements OnMovieClickListener 
                 movieList.clear();
                 adapter.notifyDataSetChanged();
                 if (response.isSuccessful() && response.body() != null) {
-                    List<Movie> movies = response.body().getResults();
+                    List<Film> movies = response.body().getResults();
                     movieList.addAll(movies);
                     adapter.notifyDataSetChanged();
                 } else {
@@ -128,7 +126,7 @@ public class FavouriteFragment extends Fragment implements OnMovieClickListener 
     }
 
     @Override
-    public void onMovieClick(Movie movie) {
+    public void onMovieClick(Film movie) {
 
     }
 }

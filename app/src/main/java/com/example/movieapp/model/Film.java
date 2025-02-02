@@ -2,7 +2,7 @@ package com.example.movieapp.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Movie {
+public class Film {
     @SerializedName("title")
     private String title;
     @SerializedName("id")
@@ -18,7 +18,7 @@ public class Movie {
     @SerializedName("name")
     private String name;
 
-    public Movie(String title, int id, String backdrop_path, String posterPath, String overview, String name) {
+    public Film(String title, int id, String backdrop_path, String posterPath, String overview, String name) {
         this.title = title;
         this.id = id;
         this.backdrop_path = backdrop_path;
