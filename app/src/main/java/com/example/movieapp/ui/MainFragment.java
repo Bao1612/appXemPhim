@@ -7,15 +7,21 @@ import android.os.Bundle;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.movieapp.R;
 import com.example.movieapp.adapter.MovieAdapter;
 import com.example.movieapp.controller.MovieController;
+import com.example.movieapp.controller.SearchController;
 import com.example.movieapp.util.OnMovieClickListener;
 import com.example.movieapp.databinding.FragmentMainBinding;
 import com.example.movieapp.model.Film;
@@ -33,8 +39,8 @@ public class MainFragment extends Fragment implements OnMovieClickListener {
     private MovieAdapter adapter;
     private List<Film> movieList;
     private MovieController movieController;
+    private SearchController searchController;
     private GeneralUtil generalUtil;
-    private List<Film> movie;
     private int page;
 
     @Override
@@ -48,11 +54,11 @@ public class MainFragment extends Fragment implements OnMovieClickListener {
 
         page = 1;
         movieController = new MovieController();
+        searchController = new SearchController();
         GridLayoutManager gridLayoutManager = new GridLayoutManager(requireContext(), 2);
         binding.rcvMovie.setLayoutManager(gridLayoutManager);
         movieList = new ArrayList<>();
         generalUtil = new GeneralUtil();
-        movie = new ArrayList<>();
         adapter = new MovieAdapter(requireContext(), movieList, this);
         binding.rcvMovie.setAdapter(adapter);
 
@@ -60,7 +66,7 @@ public class MainFragment extends Fragment implements OnMovieClickListener {
         getMovieData(page);
         prevPage();
         nextPage();
-//        searchMovie();
+        handleSearchFimData();
         return view;
     }
 
@@ -78,6 +84,38 @@ public class MainFragment extends Fragment implements OnMovieClickListener {
 
            }
        });
+
+    }
+
+
+    private void handleSearchFimData() {
+        binding.searchMovie.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                Toast.makeText(getContext(), "Searching: " + v.getText().toString(), Toast.LENGTH_SHORT).show();
+                searchFilmData(v.getText().toString());
+                return true;
+            }
+            return false;
+        });
+    }
+
+    private void searchFilmData(String name) {
+        searchController.fetchSearching(name, new SearchController.SearchCallback() {
+            @Override
+            public void onSuccess(List<Film> searchedResult) {
+                Log.d("Search", "Result size: " + searchedResult.size());
+                Toast.makeText(getContext(), "Tìm được " + searchedResult.size() + " phim", Toast.LENGTH_SHORT).show();
+
+                movieList.clear();
+                movieList.addAll(searchedResult);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                Log.e("Error", "Error: " + errorMessage);
+            }
+        });
 
     }
 

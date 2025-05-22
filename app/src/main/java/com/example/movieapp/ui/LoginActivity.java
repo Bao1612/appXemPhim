@@ -41,15 +41,15 @@ public class LoginActivity extends AppCompatActivity {
         binding.loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                String email = binding.editTextEmail.getText().toString();
-//                String password = binding.editTextPassword.getText().toString();
-//
-//                if (email.isEmpty() || password.isEmpty()) {
-//                    Toast.makeText(LoginActivity.this, "Email and Password cannot be empty", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    login(email, password);
-//                }
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                String email = binding.editTextEmail.getText().toString();
+                String password = binding.editTextPassword.getText().toString();
+
+                if (email.isEmpty() || password.isEmpty()) {
+                    Toast.makeText(LoginActivity.this, "Email and Password cannot be empty", Toast.LENGTH_SHORT).show();
+                } else {
+                    login(email, password);
+                }
+
 
             }
         });
@@ -64,15 +64,14 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void login(String email, String password) {
-        User user = new User(email, password);
+    private void login(String username, String password) {
+        User user = new User(username, password);
         Call<LoginResponse> call = api.getLogin(user);
         call.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     LoginResponse loginResponse = response.body();
-                    Toast.makeText(LoginActivity.this, loginResponse.getMessage(), Toast.LENGTH_SHORT).show();
                      // Check if login was successful
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         finish(); // Optional: Close the login activity

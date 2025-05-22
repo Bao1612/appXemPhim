@@ -11,7 +11,7 @@ public class UserApi {
     public static Retrofit getClient() {
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
-                    .baseUrl( "http://10.0.2.2:3333/api/v1/")
+                    .baseUrl( "https://dummyjson.com/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }

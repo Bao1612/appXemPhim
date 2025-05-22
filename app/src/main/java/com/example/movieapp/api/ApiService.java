@@ -23,9 +23,6 @@ public interface ApiService {
     @GET("discover/tv") // Adjust the endpoint as needed
     Call<MovieResponse> getTvSeries(@Query("page") int page);
 
-    @GET("search/movie")
-    Call<MovieResponse> searchMovie(@Query("movieName") String movieName);
-
     @POST("account/{account_id}/favorite")
     Call<FavoriteResponse> addFavorite(
             @Path("account_id") int accountId,
@@ -41,4 +38,9 @@ public interface ApiService {
 
     @POST("auth/login")
     Call<LoginResponse> getLogin(@Body User user);
+
+    @GET("search/multi")
+    Call<MovieResponse> searchFilms(@Query("query") String query);
+
+
 }

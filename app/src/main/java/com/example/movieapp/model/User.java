@@ -1,11 +1,11 @@
 package com.example.movieapp.model;
 
 public class User {
-    private String email;
+    private String username;
     private String password;
 
-    public User(String email, String password) {
-        this.email = email;
+    public User(String username, String password) {
+        this.username = username;
         this.password = password;
     }
 }

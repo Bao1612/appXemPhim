@@ -5,14 +5,17 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.movieapp.R;
+import com.example.movieapp.controller.SearchController;
 import com.example.movieapp.controller.TvSeriesController;
 import com.example.movieapp.util.OnMovieClickListener;
 import com.example.movieapp.adapter.TvSeriesAdapter;
@@ -32,6 +35,7 @@ public class TvSeriesFragment extends Fragment implements OnMovieClickListener {
     private TvSeriesAdapter adapter;
     private List<Film> tvSeriesList;
     private GeneralUtil generalUtil;
+    private SearchController searchController;
     private TvSeriesController tvSeriesController;
     private int page;
 
@@ -47,13 +51,14 @@ public class TvSeriesFragment extends Fragment implements OnMovieClickListener {
         tvSeriesList = new ArrayList<>();
         page = 1;
         tvSeriesController = new TvSeriesController();
+        searchController = new SearchController();
         adapter = new TvSeriesAdapter(requireContext(), tvSeriesList, this);
         binding.rcvMovie.setAdapter(adapter);
         generalUtil = new GeneralUtil();
         getTvSeriesData(page);
         nextPage();
         prevPage();
-
+        handleSearchFilmData();
 
         return view;
     }
@@ -64,6 +69,33 @@ public class TvSeriesFragment extends Fragment implements OnMovieClickListener {
             public void onSuccess(List<Film> TvSeries) {
                 tvSeriesList.clear();
                 tvSeriesList.addAll(TvSeries);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+
+            }
+        });
+    }
+
+    private void handleSearchFilmData() {
+        binding.search.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                Toast.makeText(getContext(), "Searching: " + v.getText().toString(), Toast.LENGTH_SHORT).show();
+                searchFilmData(v.getText().toString());
+                return true;
+            }
+            return false;
+        });
+    }
+
+    private void searchFilmData(String name) {
+        searchController.fetchSearching(name, new SearchController.SearchCallback() {
+            @Override
+            public void onSuccess(List<Film> searchedResult) {
+                tvSeriesList.clear();
+                tvSeriesList.addAll(searchedResult);
                 adapter.notifyDataSetChanged();
             }
 
